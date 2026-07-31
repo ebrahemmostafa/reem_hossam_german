@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="de" translate="no" class="notranslate" style="overflow-x: hidden;">
+  <head>
+    <link rel="stylesheet" href="https://use.typekit.net/dup6afg.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- TODO: Set the document title to the name of your application -->
+    <title>Hossam El-Din &amp; Reem - Hochzeit</title>
+    <meta name="description" content="Hochzeitseinladung von Hossam El-Din &amp; Reem">
+    <meta name="author" content="Hossam El-Din &amp; Reem" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Hossam El-Din &amp; Reem">
+    <meta property="og:description" content="Hochzeitseinladung von Hossam El-Din &amp; Reem">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Hossam El-Din &amp; Reem">
+    <meta name="twitter:description" content="Hochzeitseinladung von Hossam El-Din &amp; Reem">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="./bundle.js?v=20260731_1"></script>
+    <link rel="stylesheet" crossorigin href="./styles.css?v=20260731_1">
+<script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script><script defer src="/__l5e/events.js" data-artifact-kind="preview_commit_sha" data-artifact-id="8d69705f5179c9f0f32adf82d2e1b60d44150c33" data-commit-sha="8d69705f5179c9f0f32adf82d2e1b60d44150c33" data-context-token="v1.eyJwcm9qZWN0X2lkIjoiMzQ2MjE2ZjAtZDQxNS00MDEzLThmYWItMzg2YTU4OWNkNzg2IiwiYXJ0aWZhY3Rfa2luZCI6InByZXZpZXdfY29tbWl0X3NoYSIsImFydGlmYWN0X2lkIjoiOGQ2OTcwNWY1MTc5YzlmMGYzMmFkZjgyZDJlMWI2MGQ0NDE1MGMzMyIsImNvbW1pdF9zaGEiOiI4ZDY5NzA1ZjUxNzljOWYwZjMyYWRmODJkMmUxYjYwZDQ0MTUwYzMzIiwiZXhwIjoxNzgyNjcyMjEzfQ.KZ99pP9HsXM1GCkzp5nmSF0agtHl7iw0TwhK68afnEY"></script></head>
+
+  <body style="overflow-x: hidden;">
+    <div id="root"></div>
+    <audio id="background-music" loop preload="auto">
+      <source src="./assets/ahwak-piano.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-toggle" class="music-toggle" type="button" aria-label="Hintergrundmusik abspielen" aria-pressed="false" title="Hintergrundmusik abspielen">
+      <span aria-hidden="true">&#9835;</span>
+    </button>
+    <script>
+      (() => {
+        const music = document.getElementById('background-music');
+        const toggle = document.getElementById('music-toggle');
+
+        music.volume = 0.35;
+
+        const updateToggle = () => {
+          const isPlaying = !music.paused;
+          toggle.setAttribute('aria-pressed', String(isPlaying));
+          toggle.setAttribute('aria-label', isPlaying ? 'Hintergrundmusik pausieren' : 'Hintergrundmusik abspielen');
+          toggle.title = isPlaying ? 'Hintergrundmusik pausieren' : 'Hintergrundmusik abspielen';
+        };
+
+        const playMusic = () => music.play().then(updateToggle).catch(updateToggle);
+
+        toggle.addEventListener('click', () => {
+          if (music.paused) playMusic();
+          else music.pause();
+        });
+
+        music.addEventListener('play', updateToggle);
+        music.addEventListener('pause', updateToggle);
+        document.addEventListener('pointerdown', playMusic, { once: true });
+        playMusic();
+      })();
+    </script>
+    <script>
+      (() => {
+        const EN_TO_DE = {
+          "We are getting married": "Wir heiraten",
+          "HossamEl-Din": "HossamEl-Din",
+          "Reem": "Reem",
+          " & ": " & ",
+          "Friday, August 28, 2026": "Freitag, 28. August 2026",
+          "Add to Calendar": "Zum Kalender hinzufügen",
+          "Scroll Down": "Nach unten scrollen",
+          "Countdown": "Countdown",
+          "Days": "Tage",
+          "Hours": "Stunden",
+          "Minutes": "Minuten",
+          "Seconds": "Sekunden",
+          "Location": "Ort",
+          "From 17:00 to 21:00": "Von 17:00 bis 21:00 Uhr",
+          "Sky Resort": "Sky Resort",
+          "5th settlement, Cairo": "5. Siedlung, Kairo",
+          "Google Maps": "Google Maps",
+          "Timeline": "Ablauf",
+          "Schedule of Events": "Programm des Tages",
+          "Katb El Ketab & Reception": "Katb El-Ketab & Hochzeitsfeier",
+          "The celebration begins with (Katb El Ketab) at 17:00, followed by the wedding reception.": "Die Feier beginnt mit dem Katb El-Ketab um 17:00 Uhr, gefolgt von der Hochzeitsfeier.",
+          "17:00": "17:00 Uhr",
+          "Katb El Ketab": "Katb El-Ketab",
+          "Followed by": "Anschließend",
+          "Wedding Reception": "Hochzeitsfeier",
+          "Dress Code": "Dresscode",
+          "A few gentle reminders": "Einige freundliche Hinweise",
+          "Formal Attire": "Festliche Abendgarderobe",
+          "We kindly ask you to dress formally in any shade from our celebration palette.": "Wir bitten Sie, in festlicher Abendgarderobe in einem Farbton unserer Hochzeitspalette zu erscheinen.",
+          "Celebration palette": "Farbpalette der Feier",
+          "Please avoid wearing white — it is reserved for the bride.": "Bitte vermeiden Sie Weiß — diese Farbe ist der Braut vorbehalten.",
+          "Please avoid wearing white  it is reserved for the bride.": "Bitte vermeiden Sie Weiß — diese Farbe ist der Braut vorbehalten.",
+          "FAQ": "FAQ",
+          "Your questions answered": "Häufig gestellte Fragen",
+          "What is the dress code?": "Wie lautet der Dresscode?",
+          "Can I bring a guest?": "Kann ich eine Begleitung mitbringen?",
+          "Can I bring my children?": "Kann ich meine Kinder mitbringen?",
+          "What time should I arrive?": "Wann sollte ich ankommen?",
+          "Where is the wedding taking place?": "Wo findet die Hochzeit statt?",
+          "Is there parking available?": "Gibt es Parkplätze?",
+          "RSVP": "RSVP",
+          "We hope you can make it": "Wir hoffen, dass Sie dabei sein können",
+          "Adults only Celebration": "Feier nur für Erwachsene",
+          "An adults-only celebration. Thank you for understanding.": "Eine Feier nur für Erwachsene. Vielen Dank für Ihr Verständnis.",
+          "Will you attend? *": "Werden Sie teilnehmen? *",
+          "Yes, I'll be there": "Ja, ich bin dabei",
+          "Sorry, I can't make it": "Leider kann ich nicht kommen",
+          "Full name *": "Vollständiger Name *",
+          "Your full name": "Ihr vollständiger Name",
+          "Who else won't be attending?": "Wer kann sonst noch nicht teilnehmen?",
+          "Companions": "Begleitpersonen",
+          "Add adult": "Begleitperson hinzufügen",
+          "Add person": "Person hinzufügen",
+          "Adult name": "Name der Begleitperson",
+          "Song you'd love to hear": "Ein Lied, das Sie gerne hören möchten",
+          "Message for the couple (optional)": "Nachricht an das Brautpaar (optional)",
+          "Send RSVP": "Rückmeldung absenden",
+          "Sending...": "Wird gesendet...",
+          "Thank you for responding!": "Vielen Dank für Ihre Rückmeldung!",
+          "Your RSVP has been sent successfully.": "Ihre Rückmeldung wurde erfolgreich gesendet.",
+          "Please select if you will attend": "Bitte wählen Sie aus, ob Sie teilnehmen werden",
+          "Please enter your full name": "Bitte geben Sie Ihren vollständigen Namen ein",
+          "Names required": "Namen erforderlich",
+          "Please enter the name of all companions.": "Bitte geben Sie die Namen aller Begleitpersonen ein.",
+          "Select...": "Auswählen...",
+          "Tap to open": "Zum Öffnen tippen",
+          "Loading…": "Wird geladen…",
+          "Loading...": "Wird geladen...",
+          "Thank you for being part of our special day": "Danke, dass Sie Teil unseres besonderen Tages sind",
+          "Hossam El-Din & Reem": "Hossam El-Din & Reem",
+          "Hossam El-Din": "Hossam El-Din",
+          "Hossam": "Hossam",
+          "— Hossam El-Din & Reem": "— Hossam El-Din & Reem",
+          "— HossamEl-Din & Reem": "— HossamEl-Din & Reem",
+          "Reem & Hossam Wedding": "Hochzeit von Reem & Hossam",
+          "The Details": "Die Details",
+          "Everything you need to know": "Alles, was Sie wissen müssen",
+          "Calendar": "Kalender",
+          "From ": "Von ",
+          " to ": " bis ",
+          "21:00": "21:00 Uhr",
+          "August 28, 2026": "28. August 2026",
+          "August 28th": "28. August",
+          "August 28": "28. August",
+          "Friday": "Freitag",
+          "Day": "Tag",
+          "Hour": "Stunde",
+          "Minute": "Minute",
+          "Second": "Sekunde",
+          "Gifts": "Geschenke",
+          "A thoughtful gesture": "Eine liebevolle Geste",
+          "Card": "Karte",
+          "preferred": "bevorzugt",
+          "On the wedding day, you can hand us a card or envelope in person.": "Am Hochzeitstag können Sie uns gerne persönlich eine Karte oder einen Umschlag überreichen.",
+          "Bank Transfer": "Banküberweisung",
+          "Beneficiary:": "Begünstigter:",
+          "IBAN:": "IBAN:",
+          "Full name": "Vollständiger Name",
+          "List the people in your party who also can't make it.": "Führen Sie die Personen Ihrer Begleitung auf, die ebenfalls nicht teilnehmen können.",
+          "Add the adults joining you.": "Fügen Sie die Begleitpersonen hinzu, die Sie begleiten.",
+          "Adult": "Begleitperson",
+          "adult": "Begleitperson",
+          "adults": "Begleitpersonen",
+          "e.g. Viva la Vida - Coldplay": "z.B. Viva la Vida - Coldplay",
+          "Write us a few words...": "Schreiben Sie uns ein paar Worte...",
+          "Name required": "Name erforderlich",
+          "Please enter your full name.": "Bitte geben Sie Ihren vollständigen Namen ein.",
+          "Could not submit your RSVP. Please try again.": "Rückmeldung konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+          "Error": "Fehler",
+          "Thank You": "Vielen Dank",
+          "We're so sorry you can't join us. You'll be in our thoughts on this very special day.": "Wir bedauern sehr, dass Sie nicht dabei sein können. Sie werden an diesem besonderen Tag in unseren Gedanken sein.",
+          "Thank you for confirming": "Vielen Dank für Ihre Bestätigung",
+          "We're thrilled to know you'll be joining us on this very special day.": "Wir freuen uns sehr, dass Sie an diesem ganz besonderen Tag mit uns feiern werden.",
+          "Thank you for being part of our story.": "Danke, dass Sie Teil unserer Geschichte sind.",
+          "We look forward to seeing you on August 28th at Sky Resort.": "Wir freuen uns darauf, Sie am 28. August im Sky Resort zu sehen.",
+          "If for any reason you can no longer attend, we'd really appreciate it if you could let us know before August 1st. You can reach us via WhatsApp.": "Sollten Sie aus irgendeinem Grund nicht mehr teilnehmen können, bitten wir Sie, uns bis zum 1. August Bescheid zu geben. Sie können uns über WhatsApp erreichen.",
+          "Return to Home": "Zurück zur Startseite",
+          "Oops! Page not found": "Hoppla! Seite nicht gefunden"
+        };
+
+        const translateText = (str) => {
+          if (!str || typeof str !== 'string') return str;
+          let out = str;
+          Object.keys(EN_TO_DE)
+            .sort((a, b) => b.length - a.length)
+            .forEach(key => {
+              if (out.includes(key)) {
+                out = out.split(key).join(EN_TO_DE[key]);
+              }
+            });
+          return out;
+        };
+
+        const translateTree = (rootNode) => {
+          if (!rootNode) return;
+          const walker = document.createTreeWalker(
+            rootNode,
+            NodeFilter.SHOW_TEXT,
+            {
+              acceptNode: (node) => {
+                if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+                const parent = node.parentElement;
+                if (parent && (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE')) {
+                  return NodeFilter.FILTER_REJECT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+              }
+            }
+          );
+          let node;
+          const nodesToUpdate = [];
+          while ((node = walker.nextNode())) {
+            const newText = translateText(node.nodeValue);
+            if (newText !== node.nodeValue) {
+              nodesToUpdate.push({ node, newText });
+            }
+          }
+          nodesToUpdate.forEach(({ node, newText }) => {
+            node.nodeValue = newText;
+          });
+
+          const inputs = rootNode.querySelectorAll ? rootNode.querySelectorAll('input[placeholder], textarea[placeholder]') : [];
+          inputs.forEach(input => {
+            const ph = input.getAttribute('placeholder');
+            if (ph) {
+              const newPh = translateText(ph);
+              if (newPh !== ph) {
+                input.setAttribute('placeholder', newPh);
+              }
+            }
+          });
+        };
+
+        const enforceGerman = () => {
+          document.documentElement.lang = 'de';
+          document.documentElement.dir = 'ltr';
+          document.documentElement.classList.remove('lang-ar');
+          document.body.classList.remove('lang-ar');
+          translateTree(document.body);
+        };
+
+        const observer = new MutationObserver(() => {
+          translateTree(document.body);
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+          enforceGerman();
+          observer.observe(document.body, { childList: true, subtree: true });
+        });
+
+        setTimeout(enforceGerman, 100);
+        setTimeout(enforceGerman, 500);
+        setTimeout(enforceGerman, 1000);
+      })();
+    </script>
+  </body>
+</html>
+
