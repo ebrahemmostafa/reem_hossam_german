@@ -21817,7 +21817,7 @@ function xF({
                       p.jsx(UA, { className: "w-4 h-4" }),
                       p.jsxs("span", {
                         className: "font-body text-sm font-semibold",
-                        children: ["Von ", r, " bis ", s],
+                        children: ["Von ", r, " bis ", s, " Uhr"],
                       }),
                     ],
                   }),

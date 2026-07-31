@@ -85,10 +85,9 @@
           "Katb El Ketab & Reception": "Katb El-Ketab & Hochzeitsfeier",
           "The celebration begins with (Katb El Ketab) at 17:00, followed by the wedding reception.": "Die Feier beginnt mit dem Katb El-Ketab um 19:00 Uhr, gefolgt von der Hochzeitsfeier.",
           "The celebration begins with (Katb El Ketab) at 19:00, followed by the wedding reception.": "Die Feier beginnt mit dem Katb El-Ketab um 19:00 Uhr, gefolgt von der Hochzeitsfeier.",
-          "17:00": "19:00 Uhr",
-          "19:00": "19:00 Uhr",
-          "7:00 PM": "19:00 Uhr",
-          "7:00 pm": "19:00 Uhr",
+          "17:00": "19:00",
+          "7:00 PM": "19:00",
+          "7:00 pm": "19:00",
           "Katb El Ketab": "Katb El-Ketab",
           "Followed by": "Anschließend",
           "Wedding Reception": "Hochzeitsfeier",
@@ -147,7 +146,6 @@
           "Calendar": "Kalender",
           "From ": "Von ",
           " to ": " bis ",
-          "21:00": "21:00 Uhr",
           "August 28, 2026": "28. August 2026",
           "August 28th": "28. August",
           "August 28": "28. August",
@@ -228,7 +226,7 @@
           Object.keys(EN_TO_DE)
             .sort((a, b) => b.length - a.length)
             .forEach(key => {
-              if (out.includes(key)) {
+              if (out.includes(key) && !out.includes(EN_TO_DE[key])) {
                 out = out.split(key).join(EN_TO_DE[key]);
               }
             });
