@@ -30986,7 +30986,7 @@ function hB({ name1: e, name2: t, date: n }) {
           children: [
             p.jsxs("p", { className: "font-script text-3xl text-sage-dark mt-2 mb-1", children: ["HossamEl-Din", " & ", t] }),
             p.jsx("p", { className: "text-sm text-sage-dark/80 font-body tracking-wide", children: r }),
-            p.jsx("img", { src: uB, alt: "Ornament", className: "w-80 md:w-96 mx-auto mt-8" }),
+            p.jsx("img", { src: uB, alt: "Ornament", className: "w-80 md:w-96 mx-auto mt-8" }), p.jsxs("p", { className: "text-xs text-sage-dark/70 font-body mt-6 mb-8 tracking-wider", children: ["made with love by ", p.jsx("a", { href: "https://ajwa2-collection.vercel.app/", target: "_blank", rel: "noopener noreferrer", className: "underline hover:text-sage-dark transition-colors font-semibold", children: "Ajwaa" })] }),
           ],
         }),
       }),
