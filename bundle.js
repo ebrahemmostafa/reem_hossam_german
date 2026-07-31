@@ -21551,7 +21551,7 @@ const P_ = "./assets/hero-bg-l-slFnvE.mp4",
   fF = "./assets/hero-poster-DkA1j00-.jpg";
 function pF(e) {
   const [t, n, r] = e.split("-").map(Number);
-  return `${["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Freitag", "Saturday"][new Date(t, n - 1, r).getDay()]}, ${["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"][n - 1]} ${r}, ${t}`;
+  return `${["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"][new Date(t, n - 1, r).getDay()]}, ${r}. ${["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"][n - 1]} ${t}`;
 }
 function mF({ name1: e, name2: t, date: n, subtitle: r, paused: s }) {
   const i = pF(n);
@@ -21729,7 +21729,7 @@ function xF({
   location: e = "Sky Resort",
   address: t,
   mapsUrl: n,
-  startTime: r = "17:00",
+  startTime: r = "19:00",
   endTime: s = "21:00",
   weddingDate: i,
 }) {
@@ -21756,7 +21756,7 @@ function xF({
         _ = new Blob([j], { type: "text/calendar;charset=utf-8" }),
         k = URL.createObjectURL(_),
         T = document.createElement("a");
-      ((T.href = k), (T.download = "wedding.ics"), T.click(), URL.revokeObjectURL(k));
+      ((T.href = k), (T.download = "hochzeit.ics"), T.click(), URL.revokeObjectURL(k));
     },
     a = e || "Sky Resort",
     l = n || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a + (t ? ", " + t : ""))}`;
@@ -21842,7 +21842,7 @@ function xF({
               p.jsxs(Bt, {
                 size: "sm",
                 className: "gap-2 bg-sage-dark text-white hover:bg-sage-dark/90 border-none",
-                onClick: () => o("Hossam El-Din & Reem's Wedding", r, t ? `${a}, ${t}` : a, i, s),
+                onClick: () => o("Hochzeit von Hossam El-Din & Reem", r, t ? `${a}, ${t}` : a, i, s),
                 children: [p.jsx($A, { className: "w-4 h-4" }), "Kalender"],
               }),
             ],
@@ -30493,11 +30493,11 @@ function lB({ attendance: e }) {
         "VERSION:2.0",
         "PRODID:-//TheDigitalYes//Wedding//EN",
         "BEGIN:VEVENT",
-        "DTSTART;TZID=Africa/Cairo:20260828T170000",
+        "DTSTART;TZID=Africa/Cairo:20260828T190000",
         "DTEND;TZID=Africa/Cairo:20260828T210000",
-        "SUMMARY:Hossam El-Din & Reem's Wedding",
+        "SUMMARY:Hochzeit von Hossam El-Din & Reem",
         "LOCATION:Sky Resort, 5. Siedlung, Kairo",
-        "DESCRIPTION:Hossam El-Din & Reem's Wedding Celebration",
+        "DESCRIPTION:Hochzeitsfeier von Hossam El-Din & Reem",
         "END:VEVENT",
         "END:VCALENDAR",
       ].join(`\r
@@ -30672,7 +30672,7 @@ function cB() {
         }),
           t(!0));
       } catch {
-        E({ title: "Error", description: "Rückmeldung konnte nicht gesendet werden. Bitte versuchen Sie es erneut.", variant: "destructive" });
+        E({ title: "Fehler", description: "Rückmeldung konnte nicht gesendet werden. Bitte versuchen Sie es erneut.", variant: "destructive" });
       }
     };
   if (e) return p.jsx(lB, { attendance: n });
@@ -30804,7 +30804,7 @@ function cB() {
                             p.jsx(sn, {
                               value: N.name,
                               onChange: (D) => T(V, "name", D.target.value),
-                              placeholder: "Full name",
+                              placeholder: "Vollständiger Name",
                               className:
                                 "bg-white border-sage/30 text-sage-dark placeholder:text-sage-dark/50 focus:border-sage-dark flex-1",
                               maxLength: 100,
@@ -30889,7 +30889,7 @@ function cB() {
                                   value: N.name,
                                   required: !0,
                                   onChange: (D) => T(V, "name", D.target.value),
-                                  placeholder: "Full name",
+                                  placeholder: "Vollständiger Name",
                                   className:
                                     "bg-white border-sage/30 text-sage-dark placeholder:text-sage-dark/50 focus:border-sage-dark",
                                   maxLength: 100,
@@ -31081,7 +31081,7 @@ const YC = "./assets/video_reem.mp4",
             className:
               "absolute bottom-16 inset-x-0 text-center text-white/70 text-xs font-body tracking-[0.25em] uppercase pointer-events-none",
             style: { textShadow: "0 1px 4px rgba(0,0,0,0.3)" },
-            children: "Loading…",
+            children: "Wird geladen…",
           }),
       ],
     });
@@ -31163,7 +31163,7 @@ const MB = () => {
             location: l.banquet_location,
             address: l.banquet_address,
             mapsUrl: l.banquet_maps_url,
-            startTime: "17:00",
+            startTime: "19:00",
             endTime: "21:00",
             weddingDate: l.wedding_date,
           }),
@@ -31245,12 +31245,12 @@ function $B() {
           m = s,
           { error: y } = e ? await u(b, m) : await d(b, m);
         y
-          ? h({ title: "Error", description: y.message, variant: "destructive" })
+          ? h({ title: "Fehler", description: y.message, variant: "destructive" })
           : e
             ? f("/admin/dashboard")
-            : (h({ title: "Cuenta creada", description: "Ya puedes iniciar sesión." }), t(!0));
+            : (h({ title: "Konto erstellt", description: "Sie können sich jetzt anmelden." }), t(!0));
       } catch {
-        h({ title: "Error", description: "Algo salió mal. Inténtalo de nuevo.", variant: "destructive" });
+        h({ title: "Fehler", description: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.", variant: "destructive" });
       } finally {
         c(!1);
       }
@@ -31265,8 +31265,8 @@ function $B() {
         p.jsxs("div", {
           className: "text-center mb-8",
           children: [
-            p.jsx("h1", { className: "font-display text-3xl mb-2", children: "Panel de administración" }),
-            p.jsx("p", { className: "text-muted-foreground", children: "Gestiona tu invitación de boda" }),
+            p.jsx("h1", { className: "font-display text-3xl mb-2", children: "Administrationsbereich" }),
+            p.jsx("p", { className: "text-muted-foreground", children: "Verwalten Sie Ihre Hochzeitsanmeldungen" }),
           ],
         }),
         p.jsxs("form", {
@@ -31275,7 +31275,7 @@ function $B() {
           children: [
             p.jsxs("div", {
               children: [
-                p.jsx(st, { htmlFor: "email", children: "Email" }),
+                p.jsx(st, { htmlFor: "email", children: "E-Mail" }),
                 p.jsxs("div", {
                   className: "relative mt-2",
                   children: [
@@ -31287,7 +31287,7 @@ function $B() {
                       value: n,
                       onChange: (g) => r(g.target.value),
                       className: "pl-10",
-                      placeholder: "admin@ejemplo.com",
+                      placeholder: "admin@beispiel.de",
                     }),
                   ],
                 }),
@@ -31295,7 +31295,7 @@ function $B() {
             }),
             p.jsxs("div", {
               children: [
-                p.jsx(st, { htmlFor: "password", children: "Contraseña" }),
+                p.jsx(st, { htmlFor: "password", children: "Passwort" }),
                 p.jsxs("div", {
                   className: "relative mt-2",
                   children: [
@@ -31325,7 +31325,7 @@ function $B() {
               type: "submit",
               className: "w-full",
               disabled: l,
-              children: l ? "Cargando..." : e ? "Iniciar sesión" : "Crear cuenta",
+              children: l ? "Wird geladen..." : e ? "Anmelden" : "Konto erstellen",
             }),
           ],
         }),
@@ -32788,12 +32788,12 @@ function f5() {
       if (s)
         try {
           (await n.mutateAsync(s.id),
-            r({ title: "Invitado eliminado", description: `${s.full_name} ha sido eliminado de la lista.` }),
+            r({ title: "Gast gelöscht", description: `${s.full_name} wurde von der Gästeliste entfernt.` }),
             i(null));
         } catch {
           r({
-            title: "Error",
-            description: "No se pudo eliminar el invitado. Inténtalo de nuevo.",
+            title: "Fehler",
+            description: "Gast konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.",
             variant: "destructive",
           });
         }
@@ -32803,7 +32803,7 @@ function f5() {
         ? ""
         : m
             .map((y) => {
-              const w = y.type === "child" ? "(niño/a)" : "",
+              const w = y.type === "child" ? "(Kind)" : "",
                 S = y.allergies ? ` [${y.allergies}]` : "";
               return `${y.name} ${w}${S}`;
             })
@@ -32812,32 +32812,32 @@ function f5() {
       if (!e) return;
       const m = "\uFEFF",
         y = [
-          "Nombre",
-          "Teléfono",
-          "Email",
-          "Asistencia",
-          "Nº invitados",
-          "Alergias (titular)",
-          "Acompañantes",
-          "Transporte",
-          "Alojamiento",
-          "Canción",
-          "Mensaje",
-          "Fecha respuesta",
+          "Name",
+          "Telefon",
+          "E-Mail",
+          "Anwesenheit",
+          "Anzahl Gäste",
+          "Allergien (Gastgeber)",
+          "Begleitpersonen",
+          "Transfer",
+          "Unterkunft",
+          "Musikwunsch",
+          "Nachricht",
+          "Datum der Antwort",
         ],
         w = e.map((R) => [
           R.full_name,
           R.phone || "",
           R.email || "",
-          R.attendance === "yes" ? "Confirmado" : R.attendance === "no" ? "No asiste" : "Pendiente",
+          R.attendance === "yes" ? "Zusage" : R.attendance === "no" ? "Absage" : "Ausstehend",
           (R.guest_count || 1).toString(),
           R.dietary_requirements || "",
           g(R.companions),
-          R.needs_transport ? "Sí" : "No",
+          R.needs_transport ? "Ja" : "Nein",
           R.accommodation || "",
           R.song_request || "",
           R.message || "",
-          R.responded_at ? new Date(R.responded_at).toLocaleDateString("es-ES") : "",
+          R.responded_at ? new Date(R.responded_at).toLocaleDateString("de-DE") : "",
         ]),
         S = (R) => `"${R.replace(/"/g, '""')}"`,
         E =
@@ -32847,7 +32847,7 @@ function f5() {
         _ = new Blob([E], { type: "text/csv;charset=utf-8" }),
         k = URL.createObjectURL(_),
         T = document.createElement("a");
-      ((T.href = k), (T.download = "invitados-boda.csv"), T.click());
+      ((T.href = k), (T.download = "gaesteliste-hochzeit.csv"), T.click());
     };
   return p.jsxs("div", {
     className: "min-h-screen bg-background",
@@ -32857,14 +32857,14 @@ function f5() {
         children: p.jsxs("div", {
           className: "max-w-7xl mx-auto px-6 py-4 flex items-center justify-between",
           children: [
-            p.jsx("h1", { className: "font-display text-2xl", children: "Panel de Administración" }),
+            p.jsx("h1", { className: "font-display text-2xl", children: "Administrationsbereich" }),
             p.jsx(jD, {
               to: "/",
               children: p.jsxs(Bt, {
                 variant: "outline",
                 size: "sm",
                 className: "gap-2",
-                children: [p.jsx(KA, { className: "w-4 h-4" }), "Ver invitación"],
+                children: [p.jsx(KA, { className: "w-4 h-4" }), "Einladung ansehen"],
               }),
             }),
           ],
@@ -32884,7 +32884,7 @@ function f5() {
                     className: "pb-2",
                     children: p.jsx(mi, {
                       className: "text-sm font-normal text-muted-foreground",
-                      children: "Total personas",
+                      children: "Gesamtanzahl Personen",
                     }),
                   }),
                   p.jsx(gi, {
@@ -32904,7 +32904,7 @@ function f5() {
                     className: "pb-2",
                     children: p.jsx(mi, {
                       className: "text-sm font-normal text-muted-foreground",
-                      children: "Adultos",
+                      children: "Erwachsene",
                     }),
                   }),
                   p.jsx(gi, {
@@ -32922,7 +32922,7 @@ function f5() {
                 children: [
                   p.jsx(pi, {
                     className: "pb-2",
-                    children: p.jsx(mi, { className: "text-sm font-normal text-muted-foreground", children: "Niños" }),
+                    children: p.jsx(mi, { className: "text-sm font-normal text-muted-foreground", children: "Kinder" }),
                   }),
                   p.jsx(gi, {
                     children: p.jsxs("div", {
@@ -32941,7 +32941,7 @@ function f5() {
                     className: "pb-2",
                     children: p.jsx(mi, {
                       className: "text-sm font-normal text-muted-foreground",
-                      children: "Necesitan transporte",
+                      children: "Benötigen Transfer",
                     }),
                   }),
                   p.jsx(gi, {
@@ -32966,13 +32966,13 @@ function f5() {
                 p.jsxs(pi, {
                   className: "flex flex-row items-center justify-between",
                   children: [
-                    p.jsx(mi, { children: "Lista de invitados" }),
+                    p.jsx(mi, { children: "Gästeliste" }),
                     p.jsxs(Bt, {
                       variant: "outline",
                       size: "sm",
                       onClick: b,
                       className: "gap-2",
-                      children: [p.jsx(zA, { className: "w-4 h-4" }), "Exportar CSV"],
+                      children: [p.jsx(zA, { className: "w-4 h-4" }), "CSV exportieren"],
                     }),
                   ],
                 }),
@@ -32986,9 +32986,9 @@ function f5() {
                               p.jsx(ek, {
                                 children: p.jsxs(wc, {
                                   children: [
-                                    p.jsx(Xo, { children: "Nombre" }),
-                                    p.jsx(Xo, { className: "text-center", children: "Adultos" }),
-                                    p.jsx(Xo, { className: "text-center", children: "Niños" }),
+                                    p.jsx(Xo, { children: "Name" }),
+                                    p.jsx(Xo, { className: "text-center", children: "Erwachsene" }),
+                                    p.jsx(Xo, { className: "text-center", children: "Kinder" }),
                                     p.jsx(Xo, { className: "w-16" }),
                                   ],
                                 }),
@@ -33046,7 +33046,7 @@ function f5() {
                                                     children: [
                                                       p.jsx("span", {
                                                         className: "font-medium",
-                                                        children: "Personas y alergias:",
+                                                        children: "Personen und Allergien:",
                                                       }),
                                                       p.jsxs("ul", {
                                                         className: "mt-1 space-y-1 pl-4 list-disc",
@@ -33066,7 +33066,7 @@ function f5() {
                                                                 children: [
                                                                   _.name,
                                                                   " ",
-                                                                  _.type === "child" ? "(niño/a)" : "",
+                                                                  _.type === "child" ? "(Kind)" : "",
                                                                   _.allergies ? ` — ${_.allergies}` : "",
                                                                 ],
                                                               },
@@ -33084,7 +33084,7 @@ function f5() {
                                                         children: [
                                                           p.jsx("span", {
                                                             className: "font-medium",
-                                                            children: "Teléfono:",
+                                                            children: "Telefon:",
                                                           }),
                                                           " ",
                                                           m.phone || "-",
@@ -33094,17 +33094,17 @@ function f5() {
                                                         children: [
                                                           p.jsx("span", {
                                                             className: "font-medium",
-                                                            children: "Transporte:",
+                                                            children: "Transfer:",
                                                           }),
                                                           " ",
-                                                          m.needs_transport ? "Sí" : "No",
+                                                          m.needs_transport ? "Ja" : "Nein",
                                                         ],
                                                       }),
                                                       p.jsxs("div", {
                                                         children: [
                                                           p.jsx("span", {
                                                             className: "font-medium",
-                                                            children: "Alojamiento:",
+                                                            children: "Unterkunft:",
                                                           }),
                                                           " ",
                                                           m.accommodation || "-",
@@ -33114,7 +33114,7 @@ function f5() {
                                                         children: [
                                                           p.jsx("span", {
                                                             className: "font-medium",
-                                                            children: "Canción:",
+                                                            children: "Musikwunsch:",
                                                           }),
                                                           " ",
                                                           m.song_request || "-",
@@ -33126,7 +33126,7 @@ function f5() {
                                                           children: [
                                                             p.jsx("span", {
                                                               className: "font-medium",
-                                                              children: "Mensaje:",
+                                                              children: "Nachricht:",
                                                             }),
                                                             " ",
                                                             m.message,
@@ -33137,11 +33137,11 @@ function f5() {
                                                         children: [
                                                           p.jsx("span", {
                                                             className: "font-medium",
-                                                            children: "Fecha:",
+                                                            children: "Datum:",
                                                           }),
                                                           " ",
                                                           m.responded_at
-                                                            ? new Date(m.responded_at).toLocaleDateString("es-ES")
+                                                            ? new Date(m.responded_at).toLocaleDateString("de-DE")
                                                             : "-",
                                                         ],
                                                       }),
@@ -33162,7 +33162,7 @@ function f5() {
                         })
                       : p.jsx("p", {
                           className: "text-center py-8 text-muted-foreground",
-                          children: "Aún no hay confirmaciones de asistencia",
+                          children: "Noch keine Anmeldungen vorhanden",
                         }),
                 }),
               ],
@@ -33177,23 +33177,23 @@ function f5() {
           children: [
             p.jsxs(Yk, {
               children: [
-                p.jsx(Xk, { children: "¿Eliminar invitado?" }),
+                p.jsx(Xk, { children: "Gast löschen?" }),
                 p.jsxs(Zk, {
                   children: [
-                    "¿Estás seguro de que quieres eliminar a ",
+                    "Möchten Sie ",
                     p.jsx("strong", { children: s == null ? void 0 : s.full_name }),
-                    " de la lista de invitados? Esta acción no se puede deshacer.",
+                    " wirklich von der Gästeliste löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
                   ],
                 }),
               ],
             }),
             p.jsxs(Jk, {
               children: [
-                p.jsx(tT, { children: "Cancelar" }),
+                p.jsx(tT, { children: "Abbrechen" }),
                 p.jsx(eT, {
                   onClick: x,
                   className: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-                  children: "Eliminar",
+                  children: "Löschen",
                 }),
               ],
             }),
