@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gästeliste & RSVP-Rückmeldungen | Hochzeit von Reem & Hossam</title>
+  <!-- Supabase JS SDK via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Google Fonts: Playfair Display & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FDFBF7;
+      --card-cream: #FAF6EE;
+      --border-cream: #EAE2D3;
+      --sage-dark: #3F4F46;
+      --sage-light: #6A7F73;
+      --sage-accent: #8FA698;
+      --gold-accent: #C5A86D;
+      --text-main: #2C3531;
+      --text-muted: #646E68;
+      --green-bg: #E8F5E9;
+      --green-text: #2E7D32;
+      --red-bg: #FFEBEE;
+      --red-text: #C62828;
+      --yellow-bg: #FFF8E1;
+      --yellow-text: #F57F17;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-cream);
+      border: 1px solid var(--border-cream);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(63, 79, 70, 0.05);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-title h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--sage-dark);
+      margin-bottom: 4px;
+    }
+
+    .header-title p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--sage-dark);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background-color: #2F3B34;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background-color: #fff;
+      border-color: var(--border-cream);
+      color: var(--sage-dark);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--card-cream);
+      border-color: var(--sage-accent);
+    }
+
+    .btn-gold {
+      background-color: var(--gold-accent);
+      color: #fff;
+    }
+
+    .btn-gold:hover {
+      background-color: #b09358;
+      transform: translateY(-1px);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--card-cream);
+      border: 1px solid var(--border-cream);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      transition: transform 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .stat-card .label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-card .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--sage-dark);
+    }
+
+    .stat-card .subtext {
+      font-size: 0.8rem;
+      color: var(--sage-light);
+      margin-top: 4px;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      background: var(--card-cream);
+      border: 1px solid var(--border-cream);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 16px 12px 40px;
+      border: 1px solid var(--border-cream);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      background: #fff;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--sage-accent);
+      box-shadow: 0 0 0 3px rgba(143, 166, 152, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-pill {
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-cream);
+      background: #fff;
+      color: var(--sage-dark);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-pill:hover {
+      background: var(--card-cream);
+    }
+
+    .filter-pill.active {
+      background: var(--sage-dark);
+      color: #fff;
+      border-color: var(--sage-dark);
+    }
+
+    /* Table Container */
+    .table-container {
+      background: #fff;
+      border: 1px solid var(--border-cream);
+      border-radius: 16px;
+      overflow-x: auto;
+      box-shadow: 0 4px 20px rgba(63, 79, 70, 0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--card-cream);
+      color: var(--sage-dark);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 16px;
+      border-bottom: 2px solid var(--border-cream);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-cream);
+      font-size: 0.95rem;
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: rgba(253, 251, 247, 0.7);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge-yes {
+      background-color: var(--green-bg);
+      color: var(--green-text);
+    }
+
+    .badge-no {
+      background-color: var(--red-bg);
+      color: var(--red-text);
+    }
+
+    .badge-pending {
+      background-color: var(--yellow-bg);
+      color: var(--yellow-text);
+    }
+
+    .badge-transport {
+      background-color: #E3F2FD;
+      color: #1565C0;
+    }
+
+    .companions-list {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .companion-tag {
+      display: inline-block;
+      background: var(--bg-cream);
+      border: 1px solid var(--border-cream);
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-right: 4px;
+      margin-top: 4px;
+      font-size: 0.8rem;
+    }
+
+    .meta-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    /* Loading & Empty state */
+    .state-message {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      border: 3px solid var(--border-cream);
+      border-top: 3px solid var(--sage-dark);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-cream);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .header-actions, .controls-bar {
+        display: none !important;
+      }
+      header, .table-container {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+      th {
+        background-color: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="header-title">
+        <h1>Gästeliste & RSVP-Rückmeldungen</h1>
+        <p>Hochzeit von Reem & Hossam — Live-Daten aus der Datenbank <span id="lastUpdated"></span></p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline" onclick="fetchGuests()">
+          🔄 Aktualisieren
+        </button>
+        <button class="btn btn-gold" onclick="exportToCSV()">
+          📊 Excel / CSV herunterladen
+        </button>
+        <button class="btn btn-primary" onclick="exportOfflineHTML()">
+          💾 HTML-Datei speichern
+        </button>
+        <button class="btn btn-outline" onclick="window.print()">
+          🖨️ Drucken / PDF
+        </button>
+      </div>
+    </header>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="label">Gesamt Gäste (Zusage)</div>
+        <div class="value" id="stat-total-guests">0</div>
+        <div class="subtext">Erw. & Kinder</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Zusage (Familien)</div>
+        <div class="value" id="stat-confirmed">0</div>
+        <div class="subtext">Bestätigte Einladungen</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Absage</div>
+        <div class="value" id="stat-declined">0</div>
+        <div class="subtext">Können nicht kommen</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Ausstehend</div>
+        <div class="value" id="stat-pending">0</div>
+        <div class="subtext">Warten auf Antwort</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Erwachsene</div>
+        <div class="value" id="stat-adults">0</div>
+        <div class="subtext">Zusage</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Kinder</div>
+        <div class="value" id="stat-children">0</div>
+        <div class="subtext">Zusage</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Transport</div>
+        <div class="value" id="stat-transport">0</div>
+        <div class="subtext">Gäste ben. Transfer</div>
+      </div>
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Suchen nach Name, Telefon, E-Mail oder Nachricht..." oninput="renderTable()">
+      </div>
+      <div class="filter-pills" id="filterPills">
+        <button class="filter-pill active" data-filter="all" onclick="setFilter('all')">Alle (<span id="count-all">0</span>)</button>
+        <button class="filter-pill" data-filter="yes" onclick="setFilter('yes')">Zusage (<span id="count-yes">0</span>)</button>
+        <button class="filter-pill" data-filter="no" onclick="setFilter('no')">Absage (<span id="count-no">0</span>)</button>
+        <button class="filter-pill" data-filter="pending" onclick="setFilter('pending')">Ausstehend (<span id="count-pending">0</span>)</button>
+        <button class="filter-pill" data-filter="transport" onclick="setFilter('transport')">🚌 Transport (<span id="count-transport">0</span>)</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+      <div id="loadingState" class="state-message">
+        <div class="spinner"></div>
+        <p>Gästeliste wird von der Server-Datenbank geladen...</p>
+      </div>
+      <div id="errorState" class="state-message" style="display: none; color: var(--red-text);">
+        <p>⚠️ Fehler beim Laden der Daten. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.</p>
+      </div>
+      <table id="guestsTable" style="display: none;">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name & Kontakt</th>
+            <th>Status</th>
+            <th>Anzahl Gäste</th>
+            <th>Begleitpersonen</th>
+            <th>Allergien / Essenswünsche</th>
+            <th>Liedwunsch</th>
+            <th>Nachricht an das Brautpaar</th>
+            <th>Transport</th>
+            <th>Antwort am</th>
+          </tr>
+        </thead>
+        <tbody id="guestsTbody"></tbody>
+      </table>
+      <div id="emptyState" class="state-message" style="display: none;">
+        <p>Keine Gäste für diesen Filter oder Suchbegriff gefunden.</p>
+      </div>
+    </div>
+
+    <footer>
+      Hochzeitsfeier von Hossam El-Din & Reem — 28. August 2026 | Live Gästeliste (Supabase Cloud Sync)
+    </footer>
+  </div>
+
+  <script>
+    // Supabase Credentials
+    const SUPABASE_URL = "https://fozoivthiepvjqwostae.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvem9pdnRoaWVwdmpxd29zdGFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0ODEzNTYsImV4cCI6MjA5MTA1NzM1Nn0.3AdyExyuQNGnRcXVqtjeAfEs505IRelfnvRIurd3Zhs";
+
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let allGuests = [];
+    let currentFilter = 'all';
+
+    async function fetchGuests() {
+      document.getElementById('loadingState').style.display = 'block';
+      document.getElementById('guestsTable').style.display = 'none';
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('errorState').style.display = 'none';
+
+      try {
+        const { data, error } = await supabase
+          .from("guests")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        allGuests = data || [];
+        updateStats();
+        updateFilterCounts();
+        renderTable();
+
+        const now = new Date();
+        document.getElementById('lastUpdated').innerText = 
+          ` (Aktualisiert um ${now.toLocaleTimeString('de-DE')} Uhr)`;
+
+      } catch (err) {
+        console.error("Fehler beim Laden:", err);
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('errorState').style.display = 'block';
+      }
+    }
+
+    function updateStats() {
+      const confirmedList = allGuests.filter(g => g.attendance === 'yes');
+      const totalGuestsCount = confirmedList.reduce((acc, g) => acc + (g.guest_count || 1), 0);
+
+      const adultsCount = confirmedList.reduce((acc, g) => {
+        const compAdults = (g.companions || []).filter(c => c.type !== 'child').length;
+        return acc + 1 + compAdults;
+      }, 0);
+
+      const childrenCount = confirmedList.reduce((acc, g) => {
+        const compChildren = (g.companions || []).filter(c => c.type === 'child').length;
+        return acc + compChildren;
+      }, 0);
+
+      const transportCount = allGuests
+        .filter(g => g.needs_transport && g.attendance === 'yes')
+        .reduce((acc, g) => acc + (g.guest_count || 1), 0);
+
+      document.getElementById('stat-total-guests').innerText = totalGuestsCount;
+      document.getElementById('stat-confirmed').innerText = confirmedList.length;
+      document.getElementById('stat-declined').innerText = allGuests.filter(g => g.attendance === 'no').length;
+      document.getElementById('stat-pending').innerText = allGuests.filter(g => g.attendance === 'pending' || !g.attendance).length;
+      document.getElementById('stat-adults').innerText = adultsCount;
+      document.getElementById('stat-children').innerText = childrenCount;
+      document.getElementById('stat-transport').innerText = transportCount;
+    }
+
+    function updateFilterCounts() {
+      document.getElementById('count-all').innerText = allGuests.length;
+      document.getElementById('count-yes').innerText = allGuests.filter(g => g.attendance === 'yes').length;
+      document.getElementById('count-no').innerText = allGuests.filter(g => g.attendance === 'no').length;
+      document.getElementById('count-pending').innerText = allGuests.filter(g => g.attendance === 'pending' || !g.attendance).length;
+      document.getElementById('count-transport').innerText = allGuests.filter(g => g.needs_transport && g.attendance === 'yes').length;
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
+      });
+      renderTable();
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "-";
+      try {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('de-DE', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        }) + ' Uhr';
+      } catch {
+        return dateStr;
+      }
+    }
+
+    function renderTable() {
+      const searchTerm = (document.getElementById('searchInput').value || '').toLowerCase();
+
+      const filtered = allGuests.filter(g => {
+        // Match Filter Pill
+        if (currentFilter === 'yes' && g.attendance !== 'yes') return false;
+        if (currentFilter === 'no' && g.attendance !== 'no') return false;
+        if (currentFilter === 'pending' && g.attendance !== 'pending' && g.attendance) return false;
+        if (currentFilter === 'transport' && (!g.needs_transport || g.attendance !== 'yes')) return false;
+
+        // Match Search Term
+        if (searchTerm) {
+          const matchName = (g.full_name || '').toLowerCase().includes(searchTerm);
+          const matchEmail = (g.email || '').toLowerCase().includes(searchTerm);
+          const matchPhone = (g.phone || '').toLowerCase().includes(searchTerm);
+          const matchMsg = (g.message || '').toLowerCase().includes(searchTerm);
+          const matchComp = (g.companions || []).some(c => (c.name || '').toLowerCase().includes(searchTerm));
+          return matchName || matchEmail || matchPhone || matchMsg || matchComp;
+        }
+
+        return true;
+      });
+
+      const tbody = document.getElementById('guestsTbody');
+      tbody.innerHTML = '';
+
+      document.getElementById('loadingState').style.display = 'none';
+
+      if (filtered.length === 0) {
+        document.getElementById('guestsTable').style.display = 'none';
+        document.getElementById('emptyState').style.display = 'block';
+        return;
+      }
+
+      document.getElementById('guestsTable').style.display = 'table';
+      document.getElementById('emptyState').style.display = 'none';
+
+      filtered.forEach((guest, index) => {
+        const tr = document.createElement('tr');
+
+        // Status badge
+        let statusBadge = '<span class="badge badge-pending">Ausstehend</span>';
+        if (guest.attendance === 'yes') {
+          statusBadge = '<span class="badge badge-yes">✅ Zusage</span>';
+        } else if (guest.attendance === 'no') {
+          statusBadge = '<span class="badge badge-no">❌ Absage</span>';
+        }
+
+        // Companions html
+        let compsHtml = '-';
+        if (guest.companions && guest.companions.length > 0) {
+          compsHtml = guest.companions.map(c => {
+            const childTag = c.type === 'child' ? ' 👶 (Kind)' : '';
+            const allergy = c.allergies ? ` [${c.allergies}]` : '';
+            return `<span class="companion-tag">${c.name || '-'}${childTag}${allergy}</span>`;
+          }).join(' ');
+        }
+
+        // Transport
+        const transportHtml = guest.needs_transport 
+          ? '<span class="badge badge-transport">🚌 Ja</span>' 
+          : '<span class="meta-text">Nein</span>';
+
+        tr.innerHTML = `
+          <td><strong>#${index + 1}</strong></td>
+          <td>
+            <strong style="font-size: 1.05rem; color: var(--sage-dark);">${guest.full_name || '-'}</strong>
+            <span class="meta-text">📞 ${guest.phone || '-'}</span>
+            <span class="meta-text">✉️ ${guest.email || '-'}</span>
+          </td>
+          <td>${statusBadge}</td>
+          <td><strong>${guest.guest_count || 1}</strong> <span class="meta-text">Gäste</span></td>
+          <td>${compsHtml}</td>
+          <td>${guest.dietary_requirements || guest.allergies || '-'}</td>
+          <td>${guest.song_request ? '🎵 ' + guest.song_request : '-'}</td>
+          <td style="max-width: 250px;">${guest.message ? '💬 ' + guest.message : '-'}</td>
+          <td>${transportHtml}</td>
+          <td class="meta-text">${formatDate(guest.created_at || guest.responded_at)}</td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Export Excel/CSV in German
+    function exportToCSV() {
+      if (allGuests.length === 0) {
+        alert("Keine Gäste zum Exportieren vorhanden.");
+        return;
+      }
+
+      const headers = [
+        "Name",
+        "Telefon",
+        "E-Mail",
+        "Status",
+        "Anzahl Gäste",
+        "Begleitpersonen",
+        "Allergien / Essenswünsche",
+        "Liedwunsch",
+        "Nachricht",
+        "Transport erforderlich",
+        "Antwortsdatum"
+      ];
+
+      const rows = allGuests.map(g => {
+        const statusDe = g.attendance === 'yes' ? 'Zusage' : g.attendance === 'no' ? 'Absage' : 'Ausstehend';
+        const compsDe = (g.companions || []).map(c => {
+          const typeDe = c.type === 'child' ? '(Kind)' : '';
+          const alg = c.allergies ? `[${c.allergies}]` : '';
+          return `${c.name} ${typeDe} ${alg}`.trim();
+        }).join('; ');
+
+        return [
+          g.full_name || '',
+          g.phone || '',
+          g.email || '',
+          statusDe,
+          g.guest_count || 1,
+          compsDe,
+          g.dietary_requirements || g.allergies || '',
+          g.song_request || '',
+          g.message || '',
+          g.needs_transport ? 'Ja' : 'Nein',
+          formatDate(g.created_at || g.responded_at)
+        ];
+      });
+
+      const csvContent = "\uFEFF" + [headers, ...rows]
+        .map(e => e.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(","))
+        .join("\n");
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `gaesteliste-hochzeit-${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Export Offline Static HTML Snapshot
+    function exportOfflineHTML() {
+      const cloneDoc = document.documentElement.cloneNode(true);
+      // Remove interactive scripts and action buttons from the static snapshot
+      const scriptTags = cloneDoc.querySelectorAll('script');
+      scriptTags.forEach(s => s.remove());
+      const actions = cloneDoc.querySelector('.header-actions');
+      if (actions) actions.remove();
+      const controls = cloneDoc.querySelector('.controls-bar');
+      if (controls) controls.remove();
+
+      const htmlContent = "<!DOCTYPE html>\n<html lang=\"de\">\n" + cloneDoc.innerHTML + "\n</html>";
+      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `gaesteliste-responses-${new Date().toISOString().slice(0, 10)}.html`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Load on start
+    window.addEventListener('DOMContentLoaded', fetchGuests);
+  </script>
+</body>
+</html>
